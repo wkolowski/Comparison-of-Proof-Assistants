@@ -91,6 +91,6 @@ stateLength = do
     pure $ length s
 
 stateLength' : Eff Nat [STATE String]
-stateLength = pure (length !get)
+stateLength' = pure (length !get)
 
 -- The Type Eff
