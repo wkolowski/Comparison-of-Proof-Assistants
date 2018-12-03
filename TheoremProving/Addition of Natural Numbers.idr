@@ -10,11 +10,11 @@ pluz (S n) m = S (pluz n m)
 
 -- Default equality of Idris is heterogeneous and built-in, in contrast to the standard one.
 data (==) : (x : a) -> a -> Type where
-    Refl : x == x
+    Reflzor : x == x
 
 -- K for homogenous equality is (sadly) provable.
-K : {x : a} -> (p : x == x) -> p == Refl
-K Refl = Refl
+K : {x : a} -> (p : x == x) -> p == Reflzor
+K Reflzor = Reflzor
 
 four_eq : 4 = 4
 four_eq = Refl
@@ -47,20 +47,3 @@ vect_eq_length xs xs Refl = Refl
 
 pluz_comm : (n, m : Nat) -> pluz n m = pluz m n
 pluz_assoc : (a, b, c : Nat) -> pluz a (pluz b c) = pluz (pluz a b) c
-
--- Inductive Proofs
-
-nat_ind : {P : Nat -> Type} -> P Z -> ((n : Nat) -> P n -> P (S n)) -> (n : Nat) -> P n
-nat_ind hz _ Z = hz
-nat_ind hz hs (S n) = hs n (nat_ind hz hs n)
-
-plus_ind : Nat -> Nat -> Nat
-plus_ind n m =
-    nat_ind {P = \_ => Nat} m (\_, r => S r) n
-
-pluz_comm n m =
-    nat_ind
-        {P = \n => (m : Nat) -> pluz n m = pluz m n}
-        (nat_ind {P = \m => m = pluz m Z} ?a ?b)
-        (\k, hk => nat_ind {P = \_ => (m : Nat) -> S (pluz n m) = pluz m (S n)} ?c ?d m)
-            n m

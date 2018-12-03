@@ -3,12 +3,12 @@ import Language.Reflection.Elab
 
 %language ElabReflection
 
+-- The Interactive Theorem Prover
 
 plusAssoc : (a : Nat) -> (b : Nat) -> (c : Nat) -> a + (b + c) = (a + b) + c
 plusAssoc Z _ _ = Refl
-plusAssoc (S a) b c =
-    let IH = plusAssoc a b c in ?rhs
-    
+plusAssoc (S a) b c = rewrite plusAssoc a b c in Refl
+
 {-
     proof
     {
@@ -18,3 +18,5 @@ plusAssoc (S a) b c =
     }
 -}
 
+plusAssoc' : (a : Nat) -> (b : Nat) -> (c : Nat) -> a + (b + c) = (a + b) + c
+plusAssoc' a b c = ?a

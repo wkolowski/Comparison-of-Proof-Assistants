@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rm $(find . -name "*.ibc")
+rm */*.ibc
