@@ -3,6 +3,7 @@ module Kubikal where
 
 open import Cubical.Core.Everything
 
+open import Cubical.Data.Empty
 open import Cubical.Data.Prod
 
 refl : ∀ {A : Set} {x : A} → x ≡ x
@@ -71,12 +72,35 @@ g (loop i) = compPath (merid false) (sym (merid true)) i
 --         (λ i → f (compPath p q i)) ≡ (λ i → compPath (λ i → f p i) (λ i → f q i) i)
 -- wut f p q = refl
 
-thm1 : (x : Susp Bool) → g (f x) ≡ x
-thm1 N = refl
-thm1 S = merid true
-thm1 (merid true i) j = merid true (i ∧ j)
-thm1 (merid false i) j = ?
+-- thm1 : (x : Susp Bool) → g (f x) ≡ x
+-- thm1 N = refl
+-- thm1 S = merid true
+-- thm1 (merid true i) j = merid true (i ∧ j)
+-- thm1 (merid false i) j = ?
 
-thm2 : (x : S1) → f (g x) ≡ x
-thm2 base = refl
-thm2 (loop i) j = ?
+-- thm2 : (x : S1) → f (g x) ≡ x
+-- thm2 base = refl
+-- thm2 (loop i) j = ?
+
+-- Let's try to prove that loop <> refl
+
+h : S1 → Bool
+h base = true
+h (loop i) = true
+
+h-const : (x : S1) → h x ≡ true
+h-const base = refl
+h-const (loop i) = refl
+
+h-const' : h ≡ λ _ → true
+h-const' i = λ x → h-const x i
+
+loop-not-refl : loop ≡ refl → ⊥
+loop-not-refl
+
+data ℤ : Set where
+    Z : ℤ
+    S : ℤ → ℤ
+    P : ℤ → ℤ
+    SP : (k : ℤ) → S (P k) ≡ k
+    PS : (k : ℤ) → P (S k) ≡ k
