@@ -9,6 +9,9 @@ data Vec (A : Set) : Nat → Set where
 
 infixl 12 _++_
 
+-- Not sure if anything in this file proves that dependent pattern matching works
+-- better in Agda than in Coq.
+
 _++_ : {A : Set} → {n m : Nat} → Vec A n → Vec A m → Vec A (n + m)
 [] ++ r = r
 (h :: t) ++  r = h :: (t ++ r)
