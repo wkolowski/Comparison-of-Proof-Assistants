@@ -50,9 +50,7 @@ data Ord where
 
 data _<o_ where
     Z< : (n : Ord) → Z ≢ n → Z <o n
---    cons<l : {a b c d : Ord} → ok a c → ok b d → a < c → cons a c < cons b d
     cons<l : {n m : Ord} → fst n <o fst m → n <o m
---    cons<r : {n m : Ord} → fst b ≤o a → fst c ≤o a → b <o c → cons a b <o cons a c
     cons<r : {n m : Ord} → fst n ≡ fst m → snd n <o snd m → n <o m
 
 data _≤o_ where
