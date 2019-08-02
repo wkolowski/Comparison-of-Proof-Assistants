@@ -11,9 +11,11 @@ El : U → Set
 data U where
     UNat : U
     UPi : (A : U) (B : El A → U) → U
+    UU : U
 
 El UNat = Nat
 El (UPi A B) = (x : El A) → El (B x)
+El UU = U
 
 -- This is needed.
 data _≤_ : Nat → Nat → Prop where
@@ -63,5 +65,5 @@ fst (cons a _ _) = a
 snd Z = Z
 snd (cons _ b _) = b
 
-<o-trans : {a b c : Ord} → a < b → b < c → a < c
-<o-trans (Z< _ H) _ =
+-- <o-trans : {a b c : Ord} → a < b → b < c → a < c
+-- <o-trans (Z< _ H) _ =
