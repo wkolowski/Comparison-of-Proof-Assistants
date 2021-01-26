@@ -1,4 +1,4 @@
-module Welcome
+module Tutorial
 
 open FStar.All
 open FStar.ST

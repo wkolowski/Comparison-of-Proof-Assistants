@@ -1,6 +1,7 @@
 module Quicksort
 
 open FStar.All
+open Tutorial
 
 noeq type qsArgs 'a =
 {
