@@ -1,0 +1,76 @@
+type Bool {
+  true
+  false
+}
+
+type N {
+  Z
+  S(pred: N)
+}
+
+Int : Type
+  self(P : Int -> Type) ->
+  (new : (pos : N) -> (neg: N) -> P(Int.new(pos, neg))) ->
+  P(self)
+
+Int.new(pos : N, neg : N): Int
+  (P, new)
+  case pos {
+    Z: new(N.Z, neg)
+    S: case neg {
+      Z: new(N.S(pos.pred), N.Z)
+      S: Int.new(pos.pred, neg.pred)(P, new) 
+    }!
+  } : P(Int.new(pos, neg))
+
+wut : Int
+  Int.new(N.Z, N.Z)
+
+woed : Int
+  Int.new(N.S(N.Z), N.S(N.Z))
+  
+wat : wut == woed
+  refl
+
+ZZ : Type
+  self(P : ZZ -> Type) ->
+  (z : P(zero)) ->
+  (s : (z : ZZ) -> P(succ(z))) ->
+  (p : (z : ZZ) -> P(pred(z))) ->
+  P(self)
+
+zero : ZZ
+  (P, z, s, p) z
+
+//succ : ZZ -> ZZ
+//  (k)
+//  case k {
+//    z: (P, z, s, p) s(zero)
+//    //s: (P, z, s, p) s(k) // bad
+//    s: k.z
+//    p: k.z
+//  }
+
+succ(k : ZZ) : ZZ
+  case k {
+    z: succ(zero)
+    s: succ(k)
+    p: k.z
+  }
+
+pred : ZZ -> ZZ
+  (k) (P, z, s, p) p(k)
+
+one : ZZ
+  succ(zero)
+
+two : ZZ
+  succ(succ(zero))
+
+zerov2 : ZZ
+  succ(pred(zero))
+
+//Example: IO(Unit)
+//  IO {
+//    IO.print("Hello, world!")
+//  }
