@@ -1,0 +1,11 @@
+type In {
+  in
+}
+
+f(x : In) : In
+  case x {
+    in: In.in
+  }
+
+test : In
+  In.in

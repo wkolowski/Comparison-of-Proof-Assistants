@@ -1,0 +1,30 @@
+FM(A : Type) : Type
+  self(P : FM(A) -> Type) ->
+  (in : (a : A) -> P(in(A, a))) ->
+  (id  : P(id(A))) ->
+  (op : (x : FM(A)) -> (y : FM(A)) -> P(op(A, x, y))) ->
+  P(self)
+
+in(A : Type)(a : A) : FM(A)
+  (P, in, id, op) in(a)
+
+id(A : Type) : FM(A)
+  (P, in, id, op) id
+
+op(A : Type, x : FM(A), y : FM(A)) : FM(A)
+  case x {
+    in: case y {
+      in: op(A, x, y)
+      id: x
+      op: op(A, x, y)
+    }
+    id: y
+    op: case y {
+      in: op(A, x, y)
+      id: x
+      op: op(A, x, y)
+    }      
+  }
+
+idleft : FM(Bool)
+  op(Bool, id(Bool), in(Bool, true))
