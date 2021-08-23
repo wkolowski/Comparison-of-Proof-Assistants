@@ -1,0 +1,23 @@
+ZZ : Type
+  self(P : ZZ -> Type) ->
+  (z : P(zero)) ->
+  (s : (prev : ZZ) -> P(succ(prev))) ->
+  (p : (next : ZZ) -> P(pred(next))) ->
+  P(self)
+
+zero : ZZ
+  (P, z, s, p) z
+
+succ (k : ZZ) : ZZ
+  case k {
+    z: (P, z, s, p) s(zero)
+    s: (P, z, s, p) s(k)
+    p: k.next
+  }
+  
+pred(k : ZZ) : ZZ
+  case k {
+    z: (P, z, s, p) p(zero)
+    s: k.prev
+    p: (P, z, s, p) p(k)
+  }
