@@ -1,0 +1,29 @@
+\record Category
+  | Ob   : \Type
+  | Hom  : Ob -> Ob -> \Type
+  | id   : \Pi (A : Ob) -> Hom A A
+  | comp : \Pi {A B C : Ob} -> Hom A B -> Hom B C -> Hom A C
+  | idl  : \Pi {A B : Ob} (f : Hom A B) -> comp (id A) f = f
+  | idr  : \Pi {A B : Ob} (f : Hom A B) -> comp f (id B) = f
+  | comp_assoc : \Pi {A B C D : Ob} (f : Hom A B) (g : Hom B C) (h : Hom C D) ->
+                   comp (comp f g) h = comp f (comp g h)
+
+\data Z
+  | z
+  | s Z
+  | p Z \with
+  {
+    | s k => k
+  }
+
+\data Bool
+  | false
+  | true
+
+\data SList {A : \Type} (r : A -> A -> Bool) : \Type
+  | snil
+  | scons (h : A) (t : SList r) (H : ok h t = true)
+
+\func ok {A : \Type} (r : A -> A -> Bool) (h : A) (t : SList r) : Bool \elim t
+  | snil        => true
+  | scons x _ _ => r h x
