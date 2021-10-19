@@ -1,0 +1,52 @@
+data Bool = True | False
+
+not : Bool -> Bool
+not False = True;
+not True = False
+
+id : forall {a : Type}. a -> a
+id x = x
+
+flip : forall {a b c : Type}. (a -> b -> c) -> b -> a -> c
+flip f b a = f a b
+
+-- drop : forall {a : Type}. a -> ()
+-- drop _ = ()
+
+data Solution = Zero | One Float | Two Float Float
+
+data NotNat = NotZ | NotS NotNat
+
+sqrt : NotNat -> Float [] -> Float []
+sqrt NotZ [x] = [x];
+sqrt (NotS n) [x] = let [s] = sqrt n [x] in [0.5 * (s + x / s)]
+
+five : NotNat
+five = NotS (NotS (NotS (NotS (NotS NotZ))))
+
+lolwut : Float [] -> (Float, Float)
+lolwut [x] = (x, x)
+
+copy : forall {a : Type}. a [] -> (a, a)
+copy [x] = (x, x)
+
+computeDelta : Float [] -> Float [] -> Float [] -> Float []
+computeDelta [a] [b] [c] = [b * b - 4.0 * a * c]
+
+solveQuadratic : Float [] -> Float [] -> Float [] -> Solution
+solveQuadratic [a] [b] [c] =
+  let d = computeDelta a b c in
+  if d < 0.0
+  then Zero
+  else
+    if d == 0.0
+    then
+      let x = -1.0 * b / (2.0 * a) in One x
+    else
+      let (s1, s2) = lolwut (sqrt five [d]) in
+      let x1 = (-1.0 * b - s1) / (2.0 * a) in
+      let x2 = (-1.0 * b + s2) / (2.0 * a) in
+        Two x1 x2
+
+main : () <IO>
+main = pure ()
