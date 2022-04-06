@@ -9,8 +9,8 @@ set_option pp.universes false
 
 #print funext
 #check @congrArg
-#check extfunApp
-#check funSetoid
+--#check extfunApp
+--#check funSetoid
 #print Quotient.sound
 #print Quotient.sound.proof_1
 
