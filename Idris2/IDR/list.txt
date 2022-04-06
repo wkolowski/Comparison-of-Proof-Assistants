@@ -1,0 +1,21 @@
+introduction:
+  - declaration
+  - functions
+  - main
+  - functions from Haskell
+
+- repl + searching
+- 0 multiplicity
+- implicits
+- tuples
+- dpairs
+- records
+- interfaces + contraints
+- modules // export and public export
+- totality //%default total
+
+interactive editing:
+  - a, c, s, t, holes
+
+element in reverse
+syntax preordering
